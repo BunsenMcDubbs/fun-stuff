@@ -43,12 +43,23 @@ public class wQuickUnionUF {
 		return count;
 	}
 	
+	//    8-2 4-9 6-3 9-6 0-8 0-1 1-9 4-7 2-5 
 	public static void main (String[] args){
 		wQuickUnionUF a = new wQuickUnionUF(10);
-		a.union(4,6);
-		a.union(3,4);
-		System.out.println(a.connected(3, 6));
-		System.out.println(a.count());
+		a.union(8,2);
+		a.union(4,9);
+		a.union(6,3);
+		a.union(9,6);
+		a.union(0,8);
+		a.union(0,1);
+		a.union(1,9);
+		a.union(4,7);
+		a.union(2,5);
+		
+		for(int i = 0; i < 10; i++){
+			System.out.print("" + a.a[i] + " ");
+		}
+
 	}
 
 }
