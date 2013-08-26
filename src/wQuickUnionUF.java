@@ -6,7 +6,8 @@ public class wQuickUnionUF {
 	
 	public wQuickUnionUF(int N){
 		sz = new int[N];
-		for(int i : sz) i = 1;
+		for(int i = 0; i < N; i++)
+			sz[i] = 1;
 		a = new int[N];
 		for(int i = 0; i < N; i++)
 			a[i] = i;
@@ -19,8 +20,16 @@ public class wQuickUnionUF {
 	}
 	
 	public void union(int p, int q){
-		if(connected(p,q)) return;
-		a[p] = q;
+		int i = find(p), j = find(q);
+		if(i == j) return;
+		if(sz[i] > sz[j]){
+			a[j] = i;
+			sz[i] += sz[j];
+		}
+		else{
+			a[i] = j;
+			sz[j] += sz[i];
+		}
 		count--;
 	}
 	
