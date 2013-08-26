@@ -15,8 +15,7 @@ public class wQuickUnionUF {
 	}
 	
 	public boolean connected(int p, int q){
-		int proot = find(p), qroot = find(q);
-		return proot == qroot;
+		return find(p) == find(q);
 	}
 	
 	public void union(int p, int q){
@@ -34,10 +33,10 @@ public class wQuickUnionUF {
 	}
 	
 	public int find(int p){
-		int i = p;
-		while (a[i] != i)
-			i = a[i];
-		return i;
+		a[p] = a[a[p]];
+		while (a[p] != p)
+			p = a[p];
+		return p;
 	}
 	
 	public int count(){
