@@ -1,16 +1,16 @@
 
-public class wQuickUnionUF {
+public class WeightedQuickUnionUF {
 	
-	private int[] sz, a;
+	private int[] sz, id;
 	private int count;
 	
-	public wQuickUnionUF(int N){
+	public WeightedQuickUnionUF(int N){
 		sz = new int[N];
 		for(int i = 0; i < N; i++)
 			sz[i] = 1;
-		a = new int[N];
+		id = new int[N];
 		for(int i = 0; i < N; i++)
-			a[i] = i;
+			id[i] = i;
 		count = N;
 	}
 	
@@ -22,20 +22,20 @@ public class wQuickUnionUF {
 		int i = find(p), j = find(q);
 		if(i == j) return;
 		if(sz[i] > sz[j]){
-			a[j] = i;
+			id[j] = i;
 			sz[i] += sz[j];
 		}
 		else{
-			a[i] = j;
+			id[i] = j;
 			sz[j] += sz[i];
 		}
 		count--;
 	}
 	
 	public int find(int p){
-		a[p] = a[a[p]];
-		while (a[p] != p)
-			p = a[p];
+		id[p] = id[id[p]];
+		while (id[p] != p)
+			p = id[p];
 		return p;
 	}
 	
@@ -45,7 +45,7 @@ public class wQuickUnionUF {
 	
 	//    8-2 4-9 6-3 9-6 0-8 0-1 1-9 4-7 2-5 
 	public static void main (String[] args){
-		wQuickUnionUF a = new wQuickUnionUF(10);
+		WeightedQuickUnionUF a = new WeightedQuickUnionUF(10);
 		a.union(8,2);
 		a.union(4,9);
 		a.union(6,3);
@@ -57,7 +57,7 @@ public class wQuickUnionUF {
 		a.union(2,5);
 		
 		for(int i = 0; i < 10; i++){
-			System.out.print("" + a.a[i] + " ");
+			System.out.print("" + a.id[i] + " ");
 		}
 
 	}
