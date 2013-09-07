@@ -8,6 +8,8 @@ public class PercolationStats {
 	
 	public PercolationStats(int N, int T){
 		
+		if(N < 0 || T < 0) throw new IllegalArgumentException();
+		
 		this.N = N;
 		this.T = T;
 		NN = N*N;
@@ -74,7 +76,9 @@ public class PercolationStats {
 	public static void main(String [] args){
 		if(args.length == 2){
 			PercolationStats ps = new PercolationStats(Integer.parseInt(args[0]), Integer.parseInt(args[1]));
-			
+			System.out.println("mean\t" + "= " + ps.mean());
+			System.out.println("stddev\t" + "= " + ps.stddev());
+			System.out.println("95% confidence interval\t" + "= " + ps.confidenceLo() + ". " + ps.confidenceHi());
 		}
 	}
 	
