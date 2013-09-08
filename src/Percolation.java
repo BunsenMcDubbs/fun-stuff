@@ -1,5 +1,3 @@
-import java.awt.Point;
-
 
 public class Percolation {
 	
@@ -14,15 +12,14 @@ public class Percolation {
 		slen = N;
 		last = N*N + 1;
 	}
-	
+		
 	public void open(int i, int j){
 		
 		int loc = coordsToIndex(i,j);
-		if(loc == -1) return;
 		
-		if(i == 0){
+		if(i == 1){
 			w.union(coordsToIndex(i,j), 0);
-		} else if(i == slen - 1){
+		} else if(i == slen){
 			w.union(coordsToIndex(i,j), last);
 		}
 		
@@ -35,15 +32,19 @@ public class Percolation {
 		if(isValid(i+1,j) && isOpen(i+1,j))
 			w.union(coordsToIndex(i+1,j), loc);
 		
+		i--; j--;
 		s[i][j] = true;
 		
 	}
 	
 	public boolean isOpen(int i, int j){
+		if(!isValid(i,j)) throw new IndexOutOfBoundsException("" + i + ", " + j);
+		i--; j--;
 		return s[i][j];
 	}
 	
 	public boolean isFull(int i, int j){
+		if(!isValid(i,j)) throw new IndexOutOfBoundsException();
 		return w.connected(0, coordsToIndex(i,j));
 	}
 	
@@ -51,20 +52,18 @@ public class Percolation {
 		return w.connected(0, last);
 	}
 	
-	public int coordsToIndex(int i, int j){
-		if(!isValid(i,j)) return -1;
+	private int coordsToIndex(int i, int j){
+		if(!isValid(i,j)) throw new IndexOutOfBoundsException("" + i + ", " + j);
+		i--; j--;
 		return i*slen + j + 1;
 	}
 	
-	public int[] indexToCoords(int in){
-		return new int[]{ (in-1)/slen, (in-1)%slen };
-	}
-	
 	private boolean isValid(int i, int j){
+		i--; j--;
 		return (i < slen && i >= 0) && (j < slen && j >= 0);
 	}
 	
-	public void print(){
+	private void print(){
 		for(int i = 0; i < slen; i++){
 			for(int j = 0; j < slen; j++){
 				if(s[i][j]) System.out.print("o ");
@@ -81,16 +80,9 @@ public class Percolation {
 	}
 	
 	public static void main(String[] args){
-		Percolation p = new Percolation(5);
-		p.print();
-		System.out.println("\n");
-		p.open(0,0);
-		p.open(1,0);
-		p.open(2,0);
-		p.open(2,1);
-		p.open(3,1);
-		p.open(4,1);
-		System.out.println(p.percolates());
+		Percolation p = new Percolation(1);
+//		p.open(1,1);
+		System.out.println(p.isOpen(1,1));
 		p.print();
 	}
 

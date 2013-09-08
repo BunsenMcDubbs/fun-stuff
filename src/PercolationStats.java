@@ -8,7 +8,7 @@ public class PercolationStats {
 	
 	public PercolationStats(int N, int T){
 		
-		if(N < 0 || T < 0) throw new IllegalArgumentException();
+		if(N <= 0 || T <= 0) throw new IllegalArgumentException();
 		
 		this.N = N;
 		this.T = T;
@@ -23,14 +23,13 @@ public class PercolationStats {
 		for(int i = 0; i < T; i++){ //Each trial
 			Percolation p = new Percolation(N);
 			int os = 0; //opened spots
-			
 			while(!p.percolates()){
-				int[] loc;
+				int x,y;
 				do{
-					int s = (int)(Math.random() * NN);
-					loc = p.indexToCoords(s);
-				} while(p.isOpen(loc[0], loc[1]));
-				p.open(loc[0], loc[1]);
+					x = ((int)(Math.random() * N)) + 1;
+					y = ((int)(Math.random() * N)) + 1;
+				} while(p.isOpen(x, y));
+				p.open(x, y);
 				os++;
 			}
 			trials[i] = os;
@@ -42,6 +41,7 @@ public class PercolationStats {
 		m = true;
 		mean = 0;
 		for(int i:trials) mean += (double)i/(double)T;
+		mean /= (double)NN;
 		return mean;
 	}
 	
@@ -50,7 +50,7 @@ public class PercolationStats {
 		st = true;
 		double mean = mean();
 		double var = 0;
-		for(int i:trials) var += Math.pow(((double)i - mean), 2);
+		for(int i:trials) var += Math.pow(((double)i/(double)NN - mean), 2);
 		var /= T-1;
 		stdev = Math.sqrt(var);
 		return stdev;
