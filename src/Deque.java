@@ -4,12 +4,14 @@ import java.util.NoSuchElementException;
 
 public class Deque <Item> {
 	
+	private int size;
+	
 	public Deque(){
-		
+		size = 0;
 	}
 	
 	public boolean isEmpty(){
-		return false;
+		return size() == 0;
 	}
 	
 	public int size(){
@@ -18,20 +20,26 @@ public class Deque <Item> {
 	
 	public void addFirst(Item item){
 		if(item == null) throw new NullPointerException();
+		size++;
 		
 	}
 	
 	public void addLast(Item item){
 		if(item == null) throw new NullPointerException();
-		
+		size++;
 	}
 	
 	public Item removeFirst(){
 		if(size() <= 0) throw new NoSuchElementException();
+		size--;
+		
 		return null;
 	}
 	
 	public Item removeLast(){
+		if(size() <= 0) throw new NoSuchElementException();
+		size--;
+		
 		return null;
 	}
 	
