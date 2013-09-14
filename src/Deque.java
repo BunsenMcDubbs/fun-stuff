@@ -2,7 +2,7 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 
-public class Deque <Item> {
+public class Deque <Item> implements Iterable<Item> {
 
 	private int size;
 	private Node<Item> first;
@@ -87,13 +87,13 @@ public class Deque <Item> {
 	}
 
 	public Iterator<Item> iterator(){
-		return new DequeIterator(first);
+		return new DequeIterator<Item>(first);
 	}
 
-	private class DequeIterator implements Iterator{
+	private class DequeIterator<Item> implements Iterator<Item>{
 
-		private Node first;
-		private Node curr;
+		private Node<Item> first;
+		private Node<Item> curr;
 
 		public DequeIterator(Node<Item> first){
 			this.first = first;
@@ -106,10 +106,10 @@ public class Deque <Item> {
 		}
 
 		@Override
-		public Object next() {
+		public Item next() {
 			if(!hasNext())
 				throw new NoSuchElementException();
-			Object i = curr.getMe();
+			Item i = curr.getMe();
 			curr = curr.getNext();
 			return i;
 		}
