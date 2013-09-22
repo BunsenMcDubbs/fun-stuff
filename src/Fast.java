@@ -21,17 +21,18 @@ public class Fast {
 		}
 		
 		for(int i = 0; i < N; i++){
-			Point[] t = new Point[N-1];
+			Map m = new Map(N-1);
+			boolean skip = false;
 			for(int j = 0; j < N-1; j++){
-				if(j == i) continue;
-				
+				if(j == i) { skip = true; continue; }
+				if(skip) m.m[j-1] = new Node(p[i].slopeTo(p[j]), p[j]);
 			}
 
 		}
 
 	}
 	
-	private class Map{
+	private static class Map{
 		
 		public Node[] m;
 		public Map(int N){
@@ -40,7 +41,7 @@ public class Fast {
 		
 	}
 	
-	private class Node{
+	private static class Node{
 		public final double key;
 		public final Point p;
 		
