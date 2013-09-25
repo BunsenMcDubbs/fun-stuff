@@ -19,6 +19,8 @@ public class Fast {
 			p[i] = new Point(x, y);
 			p[i].draw();
 		}
+		
+//		Merge.sort(p);
 
 		// 0 -> N-1 (N items)
 		for(int i = 0; i < N; i++){
@@ -32,7 +34,7 @@ public class Fast {
 			}
 
 			// sort map
-			sort(m);
+			Merge.sort(m.m);
 
 			for(int j = 0; j < N-1-2; j++){
 				if(m.m[j].compareTo(m.m[j+1]) == 0)
@@ -40,6 +42,8 @@ public class Fast {
 						// match
 						StdOut.println(p[i] + " -> " + m.m[j].p + " -> " 
 								+ m.m[j+1].p + " -> " + m.m[j+2].p);
+						p[i].drawTo(m.m[j].p);
+						j += 2;
 					}
 					else j++;
 			}
