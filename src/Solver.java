@@ -29,6 +29,18 @@ public class Solver {
 			n.insert(new Node(x.manhattan() + moves, x, curr));
 		}
 		
+		while(curr.b.hamming() != 0){ // While the final board has not been found
+			Node temp = n.delMin();
+			if(temp.compareTo(curr.prev) == 0) continue;
+			neighbors = (ArrayList<Board>) temp.b.neighbors();
+			for(int i = 0; i < neighbors.size(); i++){
+				if(neighbors.get(i).equals(curr.prev.b)) continue;
+				Board x = neighbors.get(i);
+				n.insert(new Node(x.manhattan() + moves, x, curr));
+			}
+			curr = temp;
+		}
+		
 	}
 	
 	public boolean isSolvable(){
